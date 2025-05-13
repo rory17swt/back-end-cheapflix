@@ -3,6 +3,9 @@ import morgan from 'morgan'
 import mongoose from 'mongoose'
 import 'dotenv/config'
 
+// Router imports/Controllers
+import authRouter from './controllers/auth.js'
+
 const app = express()
 const port = process.env.PORT
 
@@ -12,6 +15,14 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 
+// Routers
+app.use('/api', authRouter)
+
+
+// 404 Route
+app.use('/{*any}', (req, res) => {
+    return res.status(404).json({ message: 'Page not found' })
+})
 
 
 // Connect to servers

@@ -1,4 +1,4 @@
-import mongoose from 'mngoose'
+import mongoose from 'mongoose'
 
 const commentSchema = new mongoose.Schema({
     content: {
@@ -6,12 +6,12 @@ const commentSchema = new mongoose.Schema({
         required: true
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
         required: true
     },
     movie: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'Movie',
         required: true
     }
