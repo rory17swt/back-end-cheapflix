@@ -1,5 +1,6 @@
 import express from 'express'
 import Movie from '../models/movie.js'
+import Comment from '../models/comment.js'
 import isSignedIn from '../middleware/isSignedIn.js'
 import errorHandler from '../middleware/errorHandler.js'
 import { Forbidden, NotFound } from '../utils/error.js'
@@ -34,7 +35,8 @@ router.get('/movies/:movieId', async (req, res) => {
     try {
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
-        return res.json(movie)
+        const comment = await Comment.find({ movie: movieId })
+        return res.json(movie, comment)
     } catch (error) {
         errorHandler(error, res)
     }
