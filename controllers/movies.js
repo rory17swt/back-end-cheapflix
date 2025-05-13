@@ -1,0 +1,77 @@
+import express from 'express'
+import Movie from '../models/movie.js'
+import isSignedIn from '../middleware/isSignedIn.js'
+import errorHandler from '../middleware/errorHandler.js'
+import { Forbidden, NotFound } from '../utils/error.js'
+
+const router = express.Router()
+
+// * Routes
+
+// Index
+router.get('/movies', async (req, res) => {
+    try {
+        const movies = await Movie.find()
+        return res.json(movies)
+    } catch (error) {
+        errorHandler(error, res)
+    }
+})
+
+// Create
+router.post('/movies', isSignedIn, async (req, res) => {
+    try {
+        req.body.owner = req.user._id
+        const movie = await Movie.create(req.body)
+        return res.status(201).json(movie)
+    } catch (error) {
+        errorHandler(error, res)
+    }
+})
+
+// Show
+router.get('/movies/:movieId', async (req, res) => {
+    try {
+        const { movieId } = req.params
+        const movie = await Movie.findById(movieId)
+        return res.json(movie)
+    } catch (error) {
+        errorHandler(error, res)
+    }
+})
+
+// Update
+router.put('/movies/:movieId', isSignedIn, async (req, res) => {
+    try {
+        const { movieId } = req.params
+        const movie = await Movie.findById(movieId)
+
+        if (!movie) throw new NotFound('Could not find movie')
+        if (!movie.owner.equals(req.user._id)) throw new Forbidden()
+
+        const updatedMovie = await Movie.findByIdAndUpdate(movieId, req.body, { new: true })
+        return res.json(updatedMovie)
+    } catch (error) {
+        errorHandler(error, res)
+    }
+})
+
+// Delete
+router.delete('/movie/:movieId', isSignedIn, async (req, res) => {
+    try {
+        const { movieId } = req.params
+        const movie = await Movie.findById(movieId)
+
+        if (!movie) throw new NotFound('Could not find movie')
+        if (!movie.owner.equals(req.user._id)) throw new Forbidden()
+
+        const updatedMovie = await Movie.findByIdAndDelete(movieId)
+        return res.sendStatus(204)
+    } catch (error) {
+        errorHandler(error, res)
+    }
+})
+
+
+
+export default router

@@ -18,7 +18,6 @@ router.post('/register', async (req, res) => {
 
         return res.status(201).json({ message: `Hello ${user.username}` })
     } catch (error) {
-        console.log(error.message)
         errorHandler(error, res)
     }
 })
@@ -47,7 +46,6 @@ router.post('/signIn', async (req, res) => {
         // Send the response
         return res.json({ token })
     } catch (error) {
-        console.log(error.message)
         errorHandler(error, res)
     }
 })
