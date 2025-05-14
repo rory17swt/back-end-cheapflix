@@ -23,7 +23,7 @@ const movieSchema = new mongoose.Schema({
     },
     movieImage: {
         type: String,
-        // required: [true, 'Oops, you forgot to provide a movie image!']
+        required: [true, 'Oops, you forgot to provide a movie image!']
     }
 })
 
