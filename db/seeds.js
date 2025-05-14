@@ -14,7 +14,7 @@ import commentData from './data/comments.js'
 async function seedData() {
     try {
         // Connect to mongoose
-        await mongoose.connect(process.env.MONGOBD_URI)
+        await mongoose.connect(process.env.MONGODB_URI)
         console.log('DB connection established')
 
         // Removes users from db

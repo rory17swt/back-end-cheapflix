@@ -34,7 +34,7 @@ app.use('/{*any}', (req, res) => {
 // Connect to servers
 const startServers = async() => {
     try {
-        await mongoose.connect(process.env.MONGOBD_URI)
+        await mongoose.connect(process.env.MONGODB_URI)
         console.log('DB connection established')
         app.listen(port, () => console.log(`Server started on port ${port}`))
     } catch (error) {
