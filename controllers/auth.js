@@ -26,7 +26,7 @@ router.post('/signIn', async (req, res) => {
     try {
         const { email, password } = req.body
         // Find the user
-        const userToSignIn = await User.User.findOne({ email })
+        const userToSignIn = await User.findOne({ email })
         //If user not found, unauthorized
         if (!userToSignIn) {
             throw new Unauthorized()

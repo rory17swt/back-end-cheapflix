@@ -1,4 +1,4 @@
-import jwt from 'jasonwebtoken'
+import jwt from 'jsonwebtoken'
 import User from '../models/user.js'
 import errorhandler from './errorHandler.js'
 import { Unauthorized } from '../utils/error.js'

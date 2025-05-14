@@ -59,7 +59,7 @@ router.put('/movies/:movieId', isSignedIn, async (req, res) => {
 })
 
 // Delete
-router.delete('/movie/:movieId', isSignedIn, async (req, res) => {
+router.delete('/movies/:movieId', isSignedIn, async (req, res) => {
     try {
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
@@ -67,7 +67,7 @@ router.delete('/movie/:movieId', isSignedIn, async (req, res) => {
         if (!movie) throw new NotFound('Could not find movie')
         if (!movie.owner.equals(req.user._id)) throw new Forbidden()
 
-        const updatedMovie = await Movie.findByIdAndDelete(movieId)
+        await Movie.findByIdAndDelete(movieId)
         return res.sendStatus(204)
     } catch (error) {
         errorHandler(error, res)
