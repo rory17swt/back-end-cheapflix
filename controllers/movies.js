@@ -35,8 +35,8 @@ router.get('/movies/:movieId', async (req, res) => {
     try {
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
-        const comment = await Comment.find({ movie: movieId })
-        return res.json(movie, comment)
+        const comments = await Comment.find({ movie: movieId })
+        return res.json({ movie, comments })
     } catch (error) {
         errorHandler(error, res)
     }
