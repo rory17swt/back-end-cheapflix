@@ -19,7 +19,7 @@ async function seedData() {
 
         // Removes users from db
         const deletedUsers = await User.deleteMany()
-        console.log(`${deletedUsers.deletedCount} USERS deleted from the db`)
+        console.log(`${deletedUsers.deletedCount} USERS deleted from db`)
 
         // Remove movies from the db
         const deletedMovies = await Movie.deleteMany()
@@ -30,18 +30,33 @@ async function seedData() {
         console.log(`${deletedComments.deletedCount} COMMENTS deleted from db`)
 
         // Create users
+        const users = await User.create(userData)
+        console.log(`${users.length} USERS added to db`)
 
         // Add owners to movie posts
-
-        // Add authors to comments
+        const moviesWithOwners = movieData.map((movie) => {
+            movie.owner = users[Math.floor(Math.random() * users.length)]._id
+            return movie
+        })      
 
         // Create movies
+        const movies = await Movie.create(moviesWithOwners)
+        console.log(`${movies.length} MOVIES added to db`)
 
-        // Add comments to movies
-
+        // Add comments to authors and movies
+        const commentsWithAuthors = commentData.map((comment) => {
+            comment.author = users[Math.floor(Math.random() * users.length)]._id
+            comment.movie = movies[Math.floor(Math.random() * movies.length)]._id
+            return comment           
+        })
+        
         // Create comments
+        const comments = await Comment.create(commentsWithAuthors)
+        console.log(`${comments.length} COMMENTS added to db`)
+        
 
         // Close connection to MongoDB
+        await mongoose.connection.close()
 
     } catch (error) {
         console.log(error)
