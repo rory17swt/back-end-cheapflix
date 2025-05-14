@@ -8,7 +8,7 @@ const commentSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
-        required: true
+        // required: true
     },
     movie: {
         type: mongoose.Schema.Types.ObjectId, 

@@ -6,6 +6,7 @@ import 'dotenv/config'
 // Router imports/Controllers
 import authRouter from './controllers/auth.js'
 import movieRouter from './controllers/movies.js'
+import commentRouter from './controllers/comments.js'
 
 const app = express()
 const port = process.env.PORT
@@ -19,6 +20,7 @@ app.use(morgan('dev'))
 // Routers
 app.use('/api', authRouter)
 app.use('/api', movieRouter)
+app.use('/api', commentRouter)
 
 
 // 404 Route
