@@ -12,7 +12,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: Cheapflix_uploads,
+        folder: 'Cheapflix_uploads',
         format: ['png', 'jpeg', 'JPEG', 'jpg', 'webp'],
         public_id: (req, file) => {
             return Date.now() + '-' + file.originalname.split('.')[0]
