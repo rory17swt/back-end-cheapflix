@@ -4,6 +4,7 @@ import Comment from '../models/comment.js'
 import isSignedIn from '../middleware/isSignedIn.js'
 import errorHandler from '../middleware/errorHandler.js'
 import { Forbidden, NotFound } from '../utils/error.js'
+import parser from '../middleware/fileParser.js'
 
 const router = express.Router()
 
@@ -20,7 +21,7 @@ router.get('/movies', async (req, res) => {
 })
 
 // Create
-router.post('/movies', isSignedIn, async (req, res) => {
+router.post('/movies', isSignedIn, parser.single('movieImage'), async (req, res) => {
     try {
         req.body.owner = req.user._id
         const movie = await Movie.create(req.body)
@@ -43,7 +44,7 @@ router.get('/movies/:movieId', async (req, res) => {
 })
 
 // Update
-router.put('/movies/:movieId', isSignedIn, async (req, res) => {
+router.put('/movies/:movieId', isSignedIn, parser.single('movieImage'), async (req, res) => {
     try {
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
