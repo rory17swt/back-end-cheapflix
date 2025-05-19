@@ -1,4 +1,5 @@
 export default function errorHandler(error, res) {
+    console.log('error handler')
     console.log(error)
 
     let { status, field, message } = error
