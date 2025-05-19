@@ -23,6 +23,9 @@ router.get('/movies', async (req, res) => {
 // Create
 router.post('/movies', isSignedIn, parser.single('movieImage'), async (req, res) => {
     try {
+        if (req.file) {
+            req.body.movieImage = req.file.path
+        }
         req.body.owner = req.user._id
         const movie = await Movie.create(req.body)
         return res.status(201).json(movie)
