@@ -9,18 +9,30 @@ const router = express.Router()
 
 // Routes
 router.post('/register', async (req, res) => {
-    try {
-        if (req.body.passwords !== req.body.passwordConfirmation) {
-            throw new UnprocessableEntity('Passwords do not match!')
-        }
-        req.body.password = bcrypt.hashSync(req.body.password)
-        const user = await User.create(req.body)
+  try {
+        console.log(' Incoming registration data:', req.body)
 
-        return res.status(201).json({ message: `Hello ${user.username}` })
-    } catch (error) {
-        errorHandler(error, res)
+    const { email, username, password, passwordConfirmation } = req.body
+    console.log('Received:', req.body)
+
+    if (password !== passwordConfirmation) {
+      throw new UnprocessableEntity('Passwords do not match!')
     }
+
+    const hashedPassword = bcrypt.hashSync(password)
+
+    const user = await User.create({
+      email,
+      username,
+      password: hashedPassword
+    })
+
+    return res.status(201).json({ message: `Hello ${user.username}` })
+  } catch (error) {
+    errorHandler(error, res)
+  }
 })
+
 
 router.post('/signIn', async (req, res) => {
     try {
@@ -52,3 +64,41 @@ router.post('/signIn', async (req, res) => {
 
 
 export default router
+
+
+
+
+
+// pre fix 
+// fix 
+//         const {email, username, password, passwordConfirmation} = req.body 
+       
+//         if (req.body.password !== req.body.passwordConfirmation) {
+//             throw new UnprocessableEntity('Passwords do not match!')
+//         }
+//         req.body.password = bcrypt.hashSync(req.body.password)
+//         const user = await User.create(req.body)
+
+//         return res.status(201).json({ message: `Hello ${user.username}` })
+//     } catch (error) {
+//         errorHandler(error, res)
+//     }
+// })
+
+//    try {
+
+//         // fix 
+//         const {email, username, password, passwordConfirmation} = req.body 
+       
+//         if (password !== passwordConfirmation) {
+//             throw new UnprocessableEntity('Passwords do not match!')
+//         }
+        
+//         req.body.password = bcrypt.hashSync(req.body.password)
+//         const user = await User.create(req.body)
+
+//         return res.status(201).json({ message: `Hello ${user.username}` })
+//     } catch (error) {
+//         errorHandler(error, res)
+//     }
+// })
