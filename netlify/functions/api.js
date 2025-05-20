@@ -10,6 +10,7 @@ import cors from 'cors'
 import authRouter from '../.././controllers/auth.js'
 import movieRouter from '../.././controllers/movies.js'
 import commentRouter from '../.././controllers/comments.js'
+import profileRouter from '../.././controllers/profile.js'
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(morgan('dev'))
 app.use('/api', authRouter)
 app.use('/api', movieRouter)
 app.use('/api', commentRouter)
+app.use('/api', profileRouter)
 
 
 // 404 Route
