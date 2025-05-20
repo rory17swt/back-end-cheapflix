@@ -49,6 +49,9 @@ router.get('/movies/:movieId', async (req, res) => {
 // Update
 router.put('/movies/:movieId', isSignedIn, parser.single('movieImage'), async (req, res) => {
     try {
+         if (req.file) {
+            req.body.movieImage = req.file.path
+        }
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
 
