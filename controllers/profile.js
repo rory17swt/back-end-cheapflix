@@ -1,10 +1,10 @@
 import express from 'express'
-import Movie from '../models/movie'
-import errorHandler from '../middleware/errorHandler'
-import isSignedIn from '../middleware/isSignedIn'
-import { Forbidden, NotFound } from '../utils/error'
-import User from '../models/user'
-import Comment from '../models/comment'
+import Movie from '../models/movie.js'
+import errorHandler from '../middleware/errorHandler.js'
+import isSignedIn from '../middleware/isSignedIn.js'
+import { Forbidden, NotFound } from '../utils/error.js'
+import User from '../models/user.js'
+import Comment from '../models/comment.js'
 
 const router = express.Router()
 
