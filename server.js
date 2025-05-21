@@ -24,7 +24,7 @@ app.use(morgan('dev'))
 app.use('/api', authRouter)
 app.use('/api', movieRouter)
 app.use('/api', commentRouter)
-app.use('api', profileRouter)
+app.use('/api', profileRouter)
 
 
 // 404 Route
