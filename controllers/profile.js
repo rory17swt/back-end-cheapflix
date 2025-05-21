@@ -1,10 +1,18 @@
 import express from 'express'
 import Movie from '../models/movie.js'
+<<<<<<< HEAD
 import Comment from '../models/comment.js'
 import User from '../models/user.js'
 import errorHandler from '../middleware/errorHandler.js'
 import isSignedIn from '../middleware/isSignedIn.js'
 import { Forbidden, NotFound } from '../utils/error.js'
+=======
+import errorHandler from '../middleware/errorHandler.js'
+import isSignedIn from '../middleware/isSignedIn.js'
+import { Forbidden, NotFound } from '../utils/error.js'
+import User from '../models/user.js'
+import Comment from '../models/comment.js'
+>>>>>>> d05e7ec3b2c139d175d32b41358c9a9a6015479d
 
 const router = express.Router()
 
