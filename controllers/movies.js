@@ -40,8 +40,8 @@ router.get('/movies/:movieId', async (req, res) => {
         const { movieId } = req.params
         const movie = await Movie.findById(movieId)
         const comments = await Comment.find({ movie: movieId })
+        .sort({createdAt: -1})
         .populate('author','username')
-        .sort({createdAt:-1})
         return res.json({ movie, comments })
     } catch (error) {
         errorHandler(error, res)
